@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div style="width: 100%">
     <button @click="$modal.show('new-ticket')">Add Ticket</button>
     <ul>
       <li v-for="lane in lanes">
@@ -39,6 +39,7 @@
   }
   li {
     float: left;
-    margin: 0 10px
+    padding: 0 10px;
+    width: 33%;
   }
 </style>
