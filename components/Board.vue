@@ -27,14 +27,13 @@
     },
     data: () => data,
     computed: {
-      ...mapGetters(['lanes', 'ticketsOfLane']),
-      project () { return this.$store.getters['projects/get'](this.$route.params.id) }
+      ...mapGetters(['lanes']),
+      project () { return this.$store.getters['projects/get'](this.$route.params.id) },
+      ticketsOfLane () { return lane => this.$store.getters['tickets/find']({ query: {projectId: this.project._id, status: lane} }).data }
     },
     methods: {
     },
     created () {
-      this.$store.dispatch('tickets/find')
-      this.$store.dispatch('projects/get', this.$route.params.id)
     }
   }
 </script>

@@ -9,6 +9,10 @@
   export default {
     components: {
       Board
+    },
+    async fetch ({store, params}) {
+      await store.dispatch('tickets/find', { query: {projectId: params.id} })
+      await store.dispatch('projects/get', params.id)
     }
   }
 </script>

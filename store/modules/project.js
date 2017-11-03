@@ -5,7 +5,6 @@ export default {
     defaultLane: 'Backlog'
   },
   getters: {
-    lanes: state => state.lanes,
-    ticketsOfLane: (state, getters) => lane => getters['tickets/list'].filter(ticket => ticket.status === lane)
+    lanes: state => state.lanes
   }
 }
