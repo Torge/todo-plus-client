@@ -2,14 +2,15 @@
   <modal name="new-ticket" @closed="closed">
     New Ticket
     <input v-model="ticket.title" />
-    <button @click="addTicket(ticket); $modal.hide('new-ticket')">Submit</button>
+    <button @click="$store.dispatch('tickets/create', ticket); $modal.hide('new-ticket')">Submit</button>
   </modal>
 </template>
 <script>
-  import { mapMutations, mapGetters } from 'vuex'
+  import { mapGetters } from 'vuex'
   const data = () => {
     return {
       ticket: {
+        title: '',
         status: 'Backlog'
       }
     }
@@ -20,7 +21,6 @@
       ...mapGetters(['defaultLane'])
     },
     methods: {
-      ...mapMutations(['addTicket']),
       closed () {
         this.ticket = data().ticket
       }

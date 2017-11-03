@@ -4,7 +4,7 @@
       {{title}}
     </div>
     <div class="card-body">
-      Body Text
+      <pre>{{$data}}</pre>
     </div>
   </div>
 </template>

@@ -5,7 +5,7 @@
       <li v-for="lane in lanes">
         <div>
           {{lane}}
-          <ticket v-for="ticket in ticketsOfLane(lane)" :title="ticket.title" :key="ticket.title"/>
+          <ticket v-for="ticket in ticketsOfLane(lane)" :title="ticket.title" :key="ticket.title" draggable="true"/>
         </div>
       </li>
     </ul>
@@ -30,6 +30,9 @@
     },
     methods: {
       ...mapMutations(['addTicket'])
+    },
+    created () {
+      this.$store.dispatch('tickets/find')
     }
   }
 </script>
