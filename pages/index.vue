@@ -1,14 +1,21 @@
 <template>
   <section class="container">
-    <board/>
+    Projekte
+    <ul>
+      <li v-for="project in projects"><router-link :to="{name: 'project-projectId', params: {projectId: project._id}}">{{project.name}}</router-link></li>
+    </ul>
   </section>
 </template>
 
 <script>
-import Board from '~/components/Board.vue'
 export default {
-  components: {
-    Board
+  async fetch ({store}) {
+    await store.dispatch('projects/find')
+  },
+  computed: {
+    projects () {
+      return this.$store.getters['projects/list']
+    }
   }
 }
 </script>

@@ -11,8 +11,8 @@
       Board
     },
     async fetch ({store, params}) {
-      await store.dispatch('tickets/find', { query: {projectId: params.id} })
-      await store.dispatch('projects/get', params.id)
+      await store.dispatch('tickets/find', { query: {projectId: params.projectId} })
+      await store.dispatch('projects/get', params.projectId)
     }
   }
 </script>

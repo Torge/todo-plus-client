@@ -1,7 +1,6 @@
 <template>
   <div style="width: 100%">
     <button @click="$modal.show('new-ticket')">Add Ticket</button>
-    <div >Drop here</div>
     <ul >
       <li v-for="lane in lanes" @dragover.prevent @drop="$store.dispatch('tickets/patch', [$event.dataTransfer.getData('id'), { status: lane}])">
         <div>
@@ -28,7 +27,7 @@
     data: () => data,
     computed: {
       ...mapGetters(['lanes']),
-      project () { return this.$store.getters['projects/get'](this.$route.params.id) },
+      project () { return this.$store.getters['projects/get'](this.$route.params.projectId) },
       ticketsOfLane () { return lane => this.$store.getters['tickets/find']({ query: {projectId: this.project._id, status: lane} }).data }
     },
     methods: {
