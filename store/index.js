@@ -13,7 +13,8 @@ const createStore = () => {
       project
     },
     plugins: [
-      service('tickets')
+      service('tickets'),
+      service('projects')
     ]
   })
 }

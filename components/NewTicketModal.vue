@@ -2,7 +2,7 @@
   <modal name="new-ticket" @closed="closed">
     New Ticket
     <input v-model="ticket.title" />
-    <button @click="$store.dispatch('tickets/create', ticket); $modal.hide('new-ticket')">Submit</button>
+    <button @click="$store.dispatch('tickets/create', buildTicket); $modal.hide('new-ticket')">Submit</button>
   </modal>
 </template>
 <script>
@@ -17,8 +17,15 @@
   }
   export default {
     data,
+    props: ['project'],
     computed: {
-      ...mapGetters(['defaultLane'])
+      ...mapGetters(['defaultLane']),
+      buildTicket () {
+        return {
+          ...this.ticket,
+          projectId: this.project._id
+        }
+      }
     },
     methods: {
       closed () {

@@ -1,16 +1,15 @@
 <template>
   <div class="card">
     <div class="card-header">
-      {{title}}
+      {{ticket.number}} {{ticket.title}}
     </div>
     <div class="card-body">
-      <pre>{{$data}}</pre>
     </div>
   </div>
 </template>
 <script>
   export default {
-    props: ['title']
+    props: ['ticket']
   }
 </script>
 <style>

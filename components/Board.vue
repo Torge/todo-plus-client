@@ -1,21 +1,22 @@
 <template>
   <div style="width: 100%">
     <button @click="$modal.show('new-ticket')">Add Ticket</button>
-    <ul>
-      <li v-for="lane in lanes">
+    <div >Drop here</div>
+    <ul >
+      <li v-for="lane in lanes" @dragover.prevent @drop="$store.dispatch('tickets/patch', [$event.dataTransfer.getData('id'), { status: lane}])">
         <div>
           {{lane}}
-          <ticket v-for="ticket in ticketsOfLane(lane)" :title="ticket.title" :key="ticket.title" draggable="true"/>
+          <ticket @dragstart.native="$event.dataTransfer.setData('id', ticket._id)" v-for="ticket in ticketsOfLane(lane)" :ticket="ticket" :key="ticket._id" draggable="true"/>
         </div>
       </li>
     </ul>
-  <new-ticket-modal/>
+  <new-ticket-modal :project="project"/>
   </div>
 </template>
 <script>
   import Ticket from '~/components/Ticket.vue'
   import NewTicketModal from '~/components/NewTicketModal.vue'
-  import { mapGetters, mapMutations } from 'vuex'
+  import { mapGetters } from 'vuex'
   const data = {
     showModal: false
   }
@@ -26,13 +27,14 @@
     },
     data: () => data,
     computed: {
-      ...mapGetters(['tickets', 'lanes', 'ticketsOfLane'])
+      ...mapGetters(['lanes', 'ticketsOfLane']),
+      project () { return this.$store.getters['projects/get'](this.$route.params.id) }
     },
     methods: {
-      ...mapMutations(['addTicket'])
     },
     created () {
       this.$store.dispatch('tickets/find')
+      this.$store.dispatch('projects/get', this.$route.params.id)
     }
   }
 </script>
