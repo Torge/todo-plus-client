@@ -5,12 +5,17 @@
   "author": "Torge Jürgensen <torge.juergensen@codeanker.de>",
   "private": true,
   "scripts": {
-    "dev": "HOST=0.0.0.0 nuxt",
+    "dev": "nuxt",
     "build": "nuxt build",
     "start": "HOST=0.0.0.0 nuxt start",
     "generate": "nuxt generate",
     "lint": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "precommit": "npm run lint"
+  },
+  "config": {
+   "nuxt": {
+     "host": "0.0.0.0"
+   }
   },
   "dependencies": {
     "feathers": "^2.2.3",

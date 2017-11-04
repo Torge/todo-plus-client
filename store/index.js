@@ -1,5 +1,5 @@
 import Vuex from 'vuex'
-import project from './modules/project'
+import snackbar from './modules/snackbar'
 import feathersVuex from 'feathers-vuex'
 import feathersClient from '../api/feathers-client'
 
@@ -7,10 +7,9 @@ const { service } = feathersVuex(feathersClient, { idField: '_id' })
 
 const createStore = () => {
   return new Vuex.Store({
-    state: {
-    },
+    state: { },
     modules: {
-      project
+      snackbar
     },
     plugins: [
       service('tickets'),
