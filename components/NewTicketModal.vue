@@ -1,30 +1,49 @@
 <template>
-  <modal name="new-ticket" @closed="closed">
-    New Ticket
-    <input v-model="ticket.title" />
-    <button @click="$store.dispatch('tickets/create', buildTicket); $modal.hide('new-ticket')">Submit</button>
-  </modal>
+  <div>
+    <v-dialog v-model="opened" persistent>
+      <v-card>
+        <v-card-title class="headline">Ticket Erstellen</v-card-title>
+        <v-card-text>
+          <v-text-field label="Name" v-model="ticket.title" ></v-text-field>
+          <v-select label="Project" v-model="ticket.projectId" :items="projectList"></v-select>
+          <v-select label="Status" v-model="ticket.status" :items="statusListOfProject" v-bind:disabled="!ticket.projectId"></v-select>
+          {{ticket}}
+        </v-card-text>
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn color="red darken-1" flat="flat" @click.native="opened = false">Abbrechen</v-btn>
+          <v-btn color="green darken-1" flat="flat" @click.native="$store.dispatch('tickets/create', ticket); opened = false">Erstellen</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+  </div>
 </template>
 <script>
-  import { mapGetters } from 'vuex'
   const data = () => {
     return {
       ticket: {
         title: '',
-        status: 'Backlog'
+        projectId: null,
+        status: null
       }
     }
   }
   export default {
     data,
-    props: ['project'],
+    props: ['opened'],
     computed: {
-      ...mapGetters(['defaultLane']),
-      buildTicket () {
-        return {
-          ...this.ticket,
-          projectId: this.project._id
-        }
+      projectList () {
+        return this.$store.getters['projects/list'].reduce((prev, cur) => {
+          prev.push({'text': cur.name, 'value': cur._id})
+          return prev
+        }, [])
+      },
+      statusListOfProject () {
+        let project = this.$store.getters['projects/get'](this.ticket.projectId)
+        return project ? project.lanes : []
+      },
+      disableStatus () {
+        return !this.ticket.projectId
       }
     },
     methods: {

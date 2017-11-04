@@ -8,6 +8,11 @@ const { service } = feathersVuex(feathersClient, { idField: '_id' })
 const createStore = () => {
   return new Vuex.Store({
     state: { },
+    actions: {
+      async nuxtServerInit ({ dispatch }) {
+        await dispatch('projects/find')
+      }
+    },
     modules: {
       snackbar
     },

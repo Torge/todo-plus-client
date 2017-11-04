@@ -1,6 +1,5 @@
 <template>
   <section>
-    <button @click="$modal.show('new-ticket')">Add Ticket</button>
     <ul >
       <li v-for="lane in project.lanes" @dragover.prevent @drop="$store.dispatch('tickets/patch', [$event.dataTransfer.getData('id'), { status: lane}])">
         <div>
@@ -9,19 +8,16 @@
         </div>
       </li>
     </ul>
-    <new-ticket-modal :project="project"/>
   </section>
 </template>
 <script>
   import Ticket from '~/components/Ticket.vue'
-  import NewTicketModal from '~/components/NewTicketModal.vue'
   const data = {
     showModal: false
   }
   export default {
     components: {
-      Ticket,
-      NewTicketModal
+      Ticket
     },
     data: () => data,
     computed: {
