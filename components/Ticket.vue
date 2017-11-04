@@ -14,8 +14,6 @@
 </script>
 <style>
   .card {
-    border: solid 1px;
-    background: #fff;
     padding: 10px;
     text-align: left;
   }

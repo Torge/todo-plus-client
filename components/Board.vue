@@ -1,5 +1,5 @@
 <template>
-  <div style="width: 100%">
+  <section>
     <button @click="$modal.show('new-ticket')">Add Ticket</button>
     <ul >
       <li v-for="lane in lanes" @dragover.prevent @drop="$store.dispatch('tickets/patch', [$event.dataTransfer.getData('id'), { status: lane}])">
@@ -9,8 +9,8 @@
         </div>
       </li>
     </ul>
-  <new-ticket-modal :project="project"/>
-  </div>
+    <new-ticket-modal :project="project"/>
+  </section>
 </template>
 <script>
   import Ticket from '~/components/Ticket.vue'
@@ -36,13 +36,16 @@
     }
   }
 </script>
-<style>
+<style scoped>
+  section {
+    width: 100%;
+  }
   ul {
     list-style-type: none;
   }
   li {
     float: left;
     padding: 0 10px;
-    width: 33%;
+    width: 30%;
   }
 </style>
