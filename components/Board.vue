@@ -1,6 +1,7 @@
 <template>
   <section>
-    <ul >
+    <edit-ticket-sidebar opened="true" ticketId="59fda002c38a598ee86e8afd"/>
+    <ul>
       <li v-for="lane in project.lanes" @dragover.prevent @drop="$store.dispatch('tickets/patch', [$event.dataTransfer.getData('id'), { status: lane}])">
         <div>
           {{lane}}
@@ -12,12 +13,14 @@
 </template>
 <script>
   import Ticket from '~/components/Ticket.vue'
+  import EditTicketSidebar from '~/components/EditTicketSidebar.vue'
   const data = {
     showModal: false
   }
   export default {
     components: {
-      Ticket
+      Ticket,
+      EditTicketSidebar
     },
     data: () => data,
     computed: {

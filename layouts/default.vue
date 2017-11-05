@@ -1,6 +1,6 @@
 <template>
   <v-app>
-    <v-toolbar app>
+    <v-toolbar app fixed clipped-right>
       <v-toolbar-title>ToDo++</v-toolbar-title>
       <v-spacer></v-spacer>
       <v-btn @click.native.stop="newTicketModalOpened = true">Erstellen</v-btn>
@@ -31,7 +31,13 @@ import NewTicketModal from '~/components/NewTicketModal.vue'
 export default {
   data () {
     return {
-      newTicketModalOpened: false
+      newTicketModalOpened: false,
+      drawer: null,
+      items: [
+        { title: 'Home', icon: 'dashboard' },
+        { title: 'About', icon: 'question_answer' }
+      ],
+      right: null
     }
   },
   components: {
